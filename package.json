@@ -10,7 +10,9 @@
   "author": "Meteor Development Group",
   "license": "MIT",
   "dependencies": {
-    "hexo-cli": "^1.0.4",
     "minimist": "^1.2.0"
+  },
+  "peerDependencies": {
+    "hexo-cli": "1.x"
   }
 }
