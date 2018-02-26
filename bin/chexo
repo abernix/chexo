@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+"use strict";
+
 const docsRoot = process.cwd();
 
 const assert = require("assert");
