@@ -1,6 +1,6 @@
 {
   "name": "chexo",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Run 'hexo' from a module-based configuration.",
   "bin": "bin/chexo",
   "scripts": {
