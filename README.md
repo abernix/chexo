@@ -15,10 +15,8 @@ might be present at the root of the project (if it's present).
 
 Essentially, pass the usual `hexo` arguments (e.g. `generate`, `server`, etc.),
 after the `--` when calling `chexo`, which will pass them directly to `hexo`,
-with the exception of the `--config` argument, which will be automatically.
-
-Any `--config` passed after `--` will be appended to the end of the list we
-are already setting.
+with the exception of the `--config` argument. Any `--config` passed after
+`--` will be appended to the end of the list we are already setting.
 
     npx chexo npm-module-name another-npm-module -- generate
 
