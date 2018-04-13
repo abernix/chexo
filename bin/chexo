@@ -6,8 +6,8 @@ const docsRoot = process.cwd();
 
 const assert = require("assert");
 const minimist = require("minimist")
-const { relative,resolve } = require("path");
-const { existsSync } = require("fs");
+const path = require("path");
+const fs = require("fs");
 
 const argv = minimist(process.argv.slice(2), {
   "--": true, // We'll pass the arguments after '--', if any, to Hexo.
@@ -22,7 +22,7 @@ const ensureArray = (input) =>
     input
   || [];
 
-const configsToUse =
+let configsToUse =
   ensureArray(argv.from) // Any --from arguments...
   .concat(argv._) // Along with any un-flagged params, which are also modules.
   .map(moduleId => {
@@ -31,17 +31,19 @@ const configsToUse =
     assert.strictEqual(typeof absoluteConfigPath, "string",
       "The config npm entry point must return an absolute path to its config.");
 
-    assert(existsSync(absoluteConfigPath),
+    assert(fs.existsSync(absoluteConfigPath),
       `Couldn't find ${absoluteConfigPath} specified by ${moduleId}`);
 
-    return relative(docsRoot, absoluteConfigPath);
+    return path.relative(docsRoot, absoluteConfigPath);
   });
 
 // By default, we'll include the _config.yml in the root of the docs repository
 // as the last config to be inherited.  This gives it ultimate control.
 // Disable this behavior (and resort to using _only_ npm configed options), by
 // passing the --skip-root-config option.
-if (!argv["skip-root-config"] && existsSync(resolve(docsRoot, "_config.yml"))) {
+if (!argv["skip-root-config"] &&
+  fs.existsSync(path.resolve(docsRoot, "_config.yml"))
+) {
   configsToUse.push("_config.yml");
 }
 
@@ -55,7 +57,7 @@ if (hexoArgv.config) {
   if (typeof hexoArgv.config === "string") {
     configsToUse.push(hexoArgv.config);
   } else if (Array.isArray(hexoArgv.config)) {
-    configsToUse.push(...hexoArgv.config);
+    configsToUse = configsToUse.concat(hexoArgv.config);
   }
 }
 
