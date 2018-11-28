@@ -1,6 +1,6 @@
 {
   "name": "chexo",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Run 'hexo' from a module-based configuration.",
   "repository": {
     "type": "git",
